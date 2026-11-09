@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Design tokens — industrial / data theme                             */
+/* Deep slate ground, safety-amber accent (cranes), steel-blue for data */
+/* ------------------------------------------------------------------ */
+@theme {
+  --color-bg: #0a0d13;
+  --color-surface: #121824;
+  --color-surface-2: #1a2233;
+  --color-border: #26304333;
+  --color-border-solid: #2a3348;
+
+  --color-ink: #e9edf5;
+  --color-muted: #9aa7bd;
+  --color-faint: #64728c;
+
+  --color-accent: #f7a52b;      /* safety amber — cranes / action */
+  --color-accent-soft: #f7a52b1a;
+  --color-data: #45c4f0;        /* steel blue — data / ML */
+  --color-data-soft: #45c4f01a;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Fira Code", Menlo, monospace;
+
+  --shadow-card: 0 1px 0 0 #ffffff08 inset, 0 12px 40px -12px #00000099;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(1100px 620px at 78% -8%, #f7a52b0e, transparent 60%),
+    radial-gradient(900px 560px at 6% 4%, #45c4f00d, transparent 55%),
+    var(--color-bg);
+}
+
+/* Kicker / eyebrow label — the "engineering" mono cue */
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* Faint grid / blueprint texture helper */
+.blueprint {
+  background-image:
+    linear-gradient(#ffffff06 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff06 1px, transparent 1px);
+  background-size: 46px 46px;
+}
+
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.25s ease;
+}
+.link-underline:hover {
+  background-size: 100% 1px;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #1a1206;
+}

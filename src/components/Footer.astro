@@ -1,0 +1,18 @@
+---
+import { SITE } from "../consts";
+---
+
+<footer class="border-t border-[var(--color-border)] mt-24">
+  <div
+    class="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-10 text-sm text-[var(--color-faint)] sm:flex-row sm:items-center sm:justify-between"
+  >
+    <p>© {new Date().getFullYear()} {SITE.name} · {SITE.domain}</p>
+    <div class="flex items-center gap-5">
+      <a
+        href={`mailto:${SITE.email}`}
+        class="link-underline transition-colors hover:text-[var(--color-ink)]"
+        >{SITE.email}</a
+      >
+    </div>
+  </div>
+</footer>

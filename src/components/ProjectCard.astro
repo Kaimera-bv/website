@@ -1,0 +1,71 @@
+---
+import type { Project } from "../consts";
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+
+const accentVar =
+  project.accent === "amber" ? "var(--color-accent)" : "var(--color-data)";
+
+const statusLabel: Record<Project["status"], string> = {
+  "live-demo": "Live demo",
+  "in-progress": "Demo in progress",
+  planned: "Planned",
+};
+---
+
+<a
+  href={`/demos/${project.slug}`}
+  class="group relative flex flex-col overflow-hidden rounded-xl border border-[var(--color-border-solid)] bg-[var(--color-surface)] p-6 shadow-[var(--shadow-card)] transition-all duration-300 hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--accent)_60%,transparent)]"
+  style={`--accent:${accentVar}`}
+>
+  <div
+    class="pointer-events-none absolute inset-x-0 top-0 h-px opacity-60"
+    style="background:linear-gradient(90deg,transparent,var(--accent),transparent)"
+  >
+  </div>
+
+  <div class="mb-4 flex items-center justify-between">
+    <span class="kicker" style="color:var(--accent)">{project.kicker}</span>
+    <span
+      class="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-border-solid)] px-2.5 py-1 text-[0.68rem] font-medium text-[var(--color-muted)]"
+    >
+      <span
+        class="h-1.5 w-1.5 rounded-full"
+        style={`background:${project.status === "live-demo" ? "var(--accent)" : "var(--color-faint)"}`}
+      ></span>
+      {statusLabel[project.status]}
+    </span>
+  </div>
+
+  <h3
+    class="text-xl font-semibold tracking-tight text-[var(--color-ink)] transition-colors group-hover:text-[var(--accent)]"
+  >
+    {project.title}
+  </h3>
+  <p class="mt-2 text-sm leading-relaxed text-[var(--color-muted)]">
+    {project.blurb}
+  </p>
+
+  <div class="mt-5 flex flex-wrap gap-1.5">
+    {
+      project.stack.map((tech) => (
+        <span class="rounded-md bg-[var(--color-surface-2)] px-2 py-1 font-mono text-[0.68rem] text-[var(--color-faint)]">
+          {tech}
+        </span>
+      ))
+    }
+  </div>
+
+  <span
+    class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium"
+    style="color:var(--accent)"
+  >
+    Open demo
+    <span class="transition-transform duration-300 group-hover:translate-x-1"
+      >→</span
+    >
+  </span>
+</a>

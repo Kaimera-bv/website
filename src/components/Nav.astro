@@ -1,0 +1,37 @@
+---
+import { SITE, NAV } from "../consts";
+---
+
+<header
+  class="sticky top-0 z-50 border-b border-[var(--color-border)] backdrop-blur-md bg-[#0a0d13cc]"
+>
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
+    <a href="/" class="group flex items-center gap-2.5">
+      <span
+        class="grid h-8 w-8 place-items-center rounded-md bg-[var(--color-accent)] font-mono text-sm font-bold text-[#1a1206]"
+        >K</span
+      >
+      <span class="text-sm font-semibold tracking-tight text-[var(--color-ink)]"
+        >{SITE.name}</span
+      >
+    </a>
+
+    <div class="hidden items-center gap-7 sm:flex">
+      {
+        NAV.map((item) => (
+          <a
+            href={item.href}
+            class="link-underline text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-ink)]"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a
+        href="#contact"
+        class="rounded-md border border-[var(--color-accent)] px-3.5 py-1.5 text-sm font-medium text-[var(--color-accent)] transition-colors hover:bg-[var(--color-accent)] hover:text-[#1a1206]"
+        >Hire me</a
+      >
+    </div>
+  </nav>
+</header>

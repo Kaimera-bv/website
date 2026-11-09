@@ -1,0 +1,241 @@
+---
+import Base from "../layouts/Base.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { SITE, PROJECTS } from "../consts";
+
+const timeline = [
+  {
+    period: "Jul 2024 — present",
+    badge: "Current",
+    title: "Data Scientist",
+    org: "Major European container terminal · Antwerp",
+    desc: "ML pipelines, RL for container optimisation, integration for legacy TOS infrastructure, and a real-time digital twin for operational decision-making.",
+    kind: "work",
+  },
+  {
+    period: "May 2023 — Sep 2024",
+    badge: "Education",
+    title: "Data Science",
+    org: "Turing College · Online",
+    desc: "Intensive professional programme in machine learning, data engineering and applied statistics — completed while working full-time as a crane operator.",
+    kind: "edu",
+  },
+  {
+    period: "Aug 2019 — Jul 2024",
+    title: "Ship-to-Shore Crane Operator",
+    org: "Container terminal · Antwerp",
+    desc: "Operating single and dual-hoist cranes on some of the world's largest container vessels. Worked with technical teams on complex software and hardware troubleshooting.",
+    kind: "work",
+  },
+  {
+    period: "Aug 2017 — Aug 2019",
+    title: "Straddle Carrier Operator",
+    org: "Container terminal · Antwerp",
+    desc: "Container transport and yard logistics across complex terminal layouts, with equipment reliability checks and maintenance coordination.",
+    kind: "work",
+  },
+  {
+    period: "Sep 2015 — Jul 2024",
+    title: "Dock Worker",
+    org: "CEPA · Antwerp",
+    desc: "Container preparation, discharge coordination and crane guidance under limited-visibility conditions.",
+    kind: "work",
+  },
+];
+---
+
+<Base>
+  <!-- ============================ HERO ============================ -->
+  <section class="relative overflow-hidden blueprint">
+    <div class="mx-auto max-w-6xl px-5 pt-20 pb-16 sm:pt-28 sm:pb-24">
+      <p class="kicker mb-5">{SITE.role}</p>
+      <h1
+        class="max-w-4xl text-4xl font-extrabold leading-[1.05] tracking-tight text-[var(--color-ink)] sm:text-6xl"
+      >
+        {SITE.hero.titleLead}{" "}
+        <span class="text-[var(--color-accent)]">{SITE.hero.titleHighlight}</span>{" "}
+        {SITE.hero.titleTail}
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
+        {SITE.tagline}
+      </p>
+
+      <div class="mt-9 flex flex-wrap items-center gap-4">
+        <a
+          href="#demos"
+          class="rounded-lg bg-[var(--color-accent)] px-5 py-3 text-sm font-semibold text-[#1a1206] transition-transform hover:-translate-y-0.5"
+          >Explore the demos ↓</a
+        >
+        <a
+          href="#contact"
+          class="rounded-lg border border-[var(--color-border-solid)] px-5 py-3 text-sm font-semibold text-[var(--color-ink)] transition-colors hover:border-[var(--color-accent)]"
+          >Work with me</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ DEMOS ============================ -->
+  <section id="demos" class="mx-auto max-w-6xl px-5 py-16 scroll-mt-20">
+    <div class="mb-10 max-w-2xl">
+      <p class="kicker mb-3">Interactive demos</p>
+      <h2
+        class="text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl"
+      >
+        Real systems, running in your browser.
+      </h2>
+      <p class="mt-4 text-[var(--color-muted)]">
+        Each demo is a clean-room rebuild of a production system I designed,
+        running on realistic — but entirely fictional — terminal data. Click in
+        and use them.
+      </p>
+    </div>
+
+    <div class="grid gap-5 sm:grid-cols-2">
+      {PROJECTS.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+
+  <!-- ============================ ABOUT ============================ -->
+  <section
+    id="about"
+    class="border-y border-[var(--color-border)] bg-[var(--color-surface)]/40 scroll-mt-20"
+  >
+    <div class="mx-auto grid max-w-6xl gap-12 px-5 py-16 lg:grid-cols-[1fr_1.2fr]">
+      <div>
+        <p class="kicker mb-3">About</p>
+        <h2
+          class="text-3xl font-bold tracking-tight text-[var(--color-ink)]"
+        >
+          I understand your operation before I touch your data.
+        </h2>
+      </div>
+      <div class="space-y-4 text-[var(--color-muted)] leading-relaxed">
+        <p>
+          I spent years operating quay cranes, driving straddle carriers and
+          managing live cargo flows on the floor of one of Europe's busiest
+          container terminals. I became a data scientist because I saw what
+          better information could do for operations that still run largely on
+          instinct and experience.
+        </p>
+        <p>
+          Today I work at the intersection of heavy industry and modern data
+          engineering: integration layers for legacy operating systems, digital
+          twins that make real-time operations legible, and ML models built for
+          real operational problems — not benchmarks.
+        </p>
+        <p class="text-[var(--color-ink)]">
+          I don't do mystery. You'll know what I'm building, why, and where it
+          stands. I ask the uncomfortable questions early, so they don't become
+          expensive problems later.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= EXPERTISE ========================= -->
+  <section class="mx-auto max-w-6xl px-5 py-16">
+    <p class="kicker mb-8">What I bring</p>
+    <div class="grid gap-5 md:grid-cols-3">
+      {
+        [
+          {
+            t: "Domain knowledge",
+            d: "Over a decade across the full operational hierarchy of a large container terminal — dockworker to straddle driver to crane operator. I know the workflows, constraints and failure modes that never make it into a manual.",
+            a: "var(--color-accent)",
+          },
+          {
+            t: "Data science & ML",
+            d: "Predictive modelling and reinforcement learning applied to real operational problems, with explainability built in — so the people using the model trust what it tells them.",
+            a: "var(--color-data)",
+          },
+          {
+            t: "Systems & engineering",
+            d: "Integration architecture connecting legacy TOS infrastructure to modern applications, full-stack development, and a builder's instinct for making things work end to end.",
+            a: "var(--color-accent)",
+          },
+        ].map((card) => (
+          <div
+            class="rounded-xl border border-[var(--color-border-solid)] bg-[var(--color-surface)] p-6"
+            style={`--a:${card.a}`}
+          >
+            <div
+              class="mb-4 h-1 w-10 rounded-full"
+              style="background:var(--a)"
+            />
+            <h3 class="text-lg font-semibold text-[var(--color-ink)]">
+              {card.t}
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-[var(--color-muted)]">
+              {card.d}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ========================= TIMELINE ========================= -->
+  <section class="mx-auto max-w-6xl px-5 py-16">
+    <p class="kicker mb-8">Career</p>
+    <div class="space-y-4">
+      {
+        timeline.map((item) => (
+          <div class="grid gap-4 sm:grid-cols-[190px_1fr]">
+            <div class="pt-1 font-mono text-xs text-[var(--color-faint)]">
+              {item.period}
+            </div>
+            <div class="relative border-l border-[var(--color-border-solid)] pb-2 pl-6">
+              <span
+                class="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full"
+                style={`background:${item.badge === "Current" ? "var(--color-accent)" : item.kind === "edu" ? "var(--color-data)" : "var(--color-faint)"}`}
+              />
+              <div class="flex flex-wrap items-center gap-2">
+                <h3 class="font-semibold text-[var(--color-ink)]">
+                  {item.title}
+                </h3>
+                {item.badge && (
+                  <span class="rounded-full bg-[var(--color-surface-2)] px-2 py-0.5 text-[0.65rem] font-medium text-[var(--color-muted)]">
+                    {item.badge}
+                  </span>
+                )}
+              </div>
+              <p class="text-sm text-[var(--color-faint)]">{item.org}</p>
+              <p class="mt-1.5 text-sm leading-relaxed text-[var(--color-muted)]">
+                {item.desc}
+              </p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ========================= CONTACT ========================= -->
+  <section id="contact" class="mx-auto max-w-6xl px-5 py-16 scroll-mt-20">
+    <div
+      class="relative overflow-hidden rounded-2xl border border-[var(--color-border-solid)] bg-[var(--color-surface)] p-10 sm:p-14"
+    >
+      <div
+        class="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full"
+        style="background:radial-gradient(circle,var(--color-accent-soft),transparent 70%)"
+      >
+      </div>
+      <p class="kicker mb-3">Available for freelance work</p>
+      <h2
+        class="max-w-2xl text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl"
+      >
+        Have an operation that's running on instinct? Let's make it legible.
+      </h2>
+      <p class="mt-4 max-w-xl text-[var(--color-muted)]">
+        Digital twins, operational ML, legacy-system integration. If you need
+        someone who understands the floor as well as the code, get in touch.
+      </p>
+      <a
+        href={`mailto:${SITE.email}`}
+        class="mt-8 inline-flex rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#1a1206] transition-transform hover:-translate-y-0.5"
+        >{SITE.email}</a
+      >
+    </div>
+  </section>
+</Base>

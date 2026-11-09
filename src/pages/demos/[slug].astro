@@ -1,0 +1,197 @@
+---
+import Base from "../../layouts/Base.astro";
+import { PROJECTS, SITE } from "../../consts";
+import type { Project } from "../../consts";
+import DigitalTwin from "../../components/demos/DigitalTwin.tsx";
+import IntegrationLayer from "../../components/demos/IntegrationLayer.tsx";
+
+export function getStaticPaths() {
+  return PROJECTS.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+
+const accentVar =
+  project.accent === "amber" ? "var(--color-accent)" : "var(--color-data)";
+
+// Per-demo narrative. `demo` describes the interactive experience that will
+// mount in the canvas; `how` explains the real system it is rebuilt from.
+const DETAILS: Record<
+  string,
+  { youWill: string[]; how: string[] }
+> = {
+  "digital-twin": {
+    youWill: [
+      "Watch a full shift play out live — vessels berth, cranes work and straddle carriers move.",
+      "Toggle layers — containers by carrier or size, cranes, equipment, vessels.",
+      "Click any vessel or container to inspect its live state.",
+    ],
+    how: [
+      "Operational state is projected from a local terminal grid into real-world (WGS84) coordinates and rendered in WebGL with deck.gl.",
+      "The production version ingests live TOS, AIS and equipment feeds; this demo replays a scripted shift of fictional data.",
+    ],
+  },
+  "integration-layer": {
+    youWill: [
+      "Fill in a container move — from-slot to to-slot — and submit it.",
+      "Watch the request travel through a simulated mainframe message-queue round-trip.",
+      "Inspect the fixed-format message envelope, byte by byte.",
+    ],
+    how: [
+      "A modern REST API fronts a legacy mainframe that exposes no API of its own, communicating over its internal message-queue interface.",
+      "This demo simulates that round-trip end to end — the real system completes an actual move in under a second.",
+    ],
+  },
+};
+
+const detail = DETAILS[project.slug];
+---
+
+<Base title={project.title} description={project.summary}>
+  <article class="mx-auto max-w-5xl px-5 py-12" style={`--accent:${accentVar}`}>
+    <a
+      href="/#demos"
+      class="link-underline text-sm text-[var(--color-muted)] hover:text-[var(--color-ink)]"
+      >← All demos</a
+    >
+
+    <header class="mt-8">
+      <p class="kicker mb-3" style="color:var(--accent)">{project.kicker}</p>
+      <h1
+        class="text-4xl font-extrabold tracking-tight text-[var(--color-ink)] sm:text-5xl"
+      >
+        {project.title}
+      </h1>
+    </header>
+
+    <!-- Interactive canvas — the React island mounts here per demo -->
+    <div class="mt-8">
+    {
+      project.slug === "digital-twin" ? (
+        <div class="mx-[calc(50%-50vw)] flex justify-center px-4 sm:px-6">
+          <div class="w-full max-w-[1600px]">
+            <DigitalTwin client:only="react" />
+          </div>
+        </div>
+      ) : project.slug === "integration-layer" ? (
+        <IntegrationLayer client:only="react" />
+      ) : (
+        <div class="relative grid min-h-[420px] place-items-center overflow-hidden rounded-xl border border-[var(--color-border-solid)] bg-[var(--color-surface)] blueprint">
+          <div class="px-6 text-center">
+            <div
+              class="mx-auto mb-4 h-12 w-12 rounded-full border-2"
+              style="border-color:var(--accent);border-top-color:transparent;animation:spin 1.1s linear infinite"
+            />
+            <p class="font-mono text-sm text-[var(--color-muted)]">
+              Interactive demo under construction
+            </p>
+            <p class="mx-auto mt-2 max-w-md text-xs text-[var(--color-faint)]">
+              This is where the live, playable version of the system will mount.
+              We're clean-room rebuilding it on fictional terminal data.
+            </p>
+          </div>
+        </div>
+      )
+    }
+    </div>
+
+    <!-- Summary + tech stack — below the demo -->
+    <div class="mt-10 max-w-3xl">
+      <p class="text-lg leading-relaxed text-[var(--color-muted)]">
+        {project.summary}
+      </p>
+      <div class="mt-6 flex flex-wrap gap-1.5">
+        {
+          project.stack.map((tech) => (
+            <span class="rounded-md bg-[var(--color-surface-2)] px-2.5 py-1 font-mono text-xs text-[var(--color-faint)]">
+              {tech}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- What you'll be able to do -->
+    <section class="mt-14 grid gap-10 md:grid-cols-2">
+      <div>
+        <h2 class="mb-4 text-lg font-semibold text-[var(--color-ink)]">
+          What you'll be able to do
+        </h2>
+        <ul class="space-y-3">
+          {
+            detail.youWill.map((line) => (
+              <li class="flex gap-3 text-sm leading-relaxed text-[var(--color-muted)]">
+                <span style="color:var(--accent)">▹</span>
+                <span>{line}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div>
+        <h2 class="mb-4 text-lg font-semibold text-[var(--color-ink)]">
+          How the real system works
+        </h2>
+        <ul class="space-y-3">
+          {
+            detail.how.map((line) => (
+              <li class="flex gap-3 text-sm leading-relaxed text-[var(--color-muted)]">
+                <span class="text-[var(--color-faint)]">▹</span>
+                <span>{line}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- IP-safe note -->
+    <p
+      class="mt-12 rounded-lg border border-[var(--color-border-solid)] bg-[var(--color-surface)] px-4 py-3 text-xs leading-relaxed text-[var(--color-faint)]"
+    >
+      This demo is an independent, clean-room rebuild of a system I designed in a
+      professional setting. It contains no proprietary code, data or system
+      internals — everything shown runs on fictional terminal data.
+    </p>
+
+    <!-- CTA -->
+    <div class="mt-12 rounded-xl border border-[var(--color-border-solid)] bg-[var(--color-surface)] p-8">
+      <h2 class="text-2xl font-bold tracking-tight text-[var(--color-ink)]">
+        This is the kind of system I build.
+      </h2>
+      <p class="mt-2 text-[var(--color-muted)]">
+        If it maps to a problem you have, let's talk.
+      </p>
+      <a
+        href={`mailto:${SITE.email}`}
+        class="mt-5 inline-flex rounded-lg px-5 py-2.5 text-sm font-semibold text-[#1a1206]"
+        style="background:var(--accent)">{SITE.email}</a
+      >
+    </div>
+  </article>
+</Base>
+
+<style is:global>
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes spin-pulse {
+    0%,
+    100% {
+      transform: scale(0.6);
+      opacity: 0.15;
+    }
+    50% {
+      transform: scale(1.15);
+      opacity: 0.4;
+    }
+  }
+</style>
