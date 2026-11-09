@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import ResearchCard from "../../components/ResearchCard.astro";
+
+const studies = (await getCollection("research", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<Base
+  title="Research"
+  description="Simulation studies on container terminal operations: which levers actually move the numbers."
+>
+  <section class="mx-auto max-w-6xl px-5 py-16">
+    <div class="mb-10 max-w-2xl">
+      <p class="kicker mb-3">Research</p>
+      <h1 class="text-4xl font-extrabold tracking-tight text-[var(--color-ink)] sm:text-5xl">
+        Which levers actually move the numbers.
+      </h1>
+      <p class="mt-4 text-[var(--color-muted)]">
+        Studies I run on my own simulation models of terminal operations. Each one asks one
+        question, shows the result and says plainly what the model leaves out.
+      </p>
+    </div>
+
+    <div class="grid gap-5 sm:grid-cols-2">
+      {studies.map((entry) => <ResearchCard entry={entry} />)}
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,48 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  entry: CollectionEntry<"research">;
+}
+const { entry } = Astro.props;
+const { title, finding, topic, date, tags } = entry.data;
+const dateLabel = date.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+---
+
+<a
+  href={`/research/${entry.id}`}
+  class="group relative flex flex-col overflow-hidden rounded-xl border border-[var(--color-border-solid)] bg-[var(--color-surface)] p-6 shadow-[var(--shadow-card)] transition-all duration-300 hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--color-data)_60%,transparent)]"
+>
+  <div
+    class="pointer-events-none absolute inset-x-0 top-0 h-px opacity-60"
+    style="background:linear-gradient(90deg,transparent,var(--color-data),transparent)"
+  >
+  </div>
+
+  <div class="mb-4 flex items-center justify-between gap-4">
+    <span class="kicker" style="color:var(--color-data)">{topic}</span>
+    <time datetime={date.toISOString()} class="font-mono text-[0.68rem] text-[var(--color-faint)]">{dateLabel}</time>
+  </div>
+
+  <h3
+    class="text-xl font-semibold tracking-tight text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-data)]"
+  >
+    {title}
+  </h3>
+  <p class="mt-2 text-sm leading-relaxed text-[var(--color-muted)]">{finding}</p>
+
+  <div class="mt-5 flex flex-wrap gap-1.5">
+    {
+      tags.map((tag) => (
+        <span class="rounded-md bg-[var(--color-surface-2)] px-2 py-1 font-mono text-[0.68rem] text-[var(--color-faint)]">
+          {tag}
+        </span>
+      ))
+    }
+  </div>
+
+  <span class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-data)]">
+    Read the study
+    <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+  </span>
+</a>

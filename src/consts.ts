@@ -66,6 +66,7 @@ export const PROJECTS: Project[] = [
 export const NAV = [
   { href: "/", label: "Home" },
   { href: "/#demos", label: "Demos" },
+  { href: "/research", label: "Research" },
   { href: "/#about", label: "About" },
   { href: "/#contact", label: "Contact" },
 ];
